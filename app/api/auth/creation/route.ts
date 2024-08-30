@@ -31,6 +31,6 @@ export async function GET() {
   }
 
   return NextResponse.redirect(
-    "http://localhost:3000/guestbook"
+    "https://vivek-sarkar-portfolio.vercel.app/guestbook"
   );
 }
