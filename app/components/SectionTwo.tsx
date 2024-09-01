@@ -61,7 +61,7 @@ const socialMedia = [
     icon: insta,
     name: "Instagram",
     username: "@http.vivek.i",
-    link: "http://localhost:3000/",
+    link: "https://www.instagram.com/http.vivek.i/?igsh=MWR4bHMzbnI2Z2NldA%3D%3D",
   },
   {
     id: 2,
