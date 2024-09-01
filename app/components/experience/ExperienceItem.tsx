@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { StyledExperienceItem } from './ExperienceItem.styled';
 import gsap from 'gsap';
+import Image from 'next/image';
 
 interface ExperienceItemProps {
   logo: any;
@@ -39,7 +40,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({ logo, title, descriptio
       <div className="header">
         <div className="image">
           <div className="wrapper">
-            {/* <img src={logo} alt={title} /> */}
+            <Image src={logo} alt={title} />
           </div>
         </div>
         <h2>{title}</h2>
