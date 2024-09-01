@@ -1,4 +1,5 @@
 import { AboutSection } from "./components/AboutSection";
+import { ExperienceTab } from "./components/ExperienceTab";
 import { FavoriteProjects } from "./components/FavoriteProjects";
 import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <SectionTwo />
       <AboutSection />
+      <ExperienceTab/>
       <FavoriteProjects />
       <Footer />
     </div>
