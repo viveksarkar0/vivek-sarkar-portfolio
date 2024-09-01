@@ -4,7 +4,7 @@ import { StyledExperienceItem } from './ExperienceItem.styled';
 import gsap from 'gsap';
 
 interface ExperienceItemProps {
-  logo: string;
+  logo: any;
   title: string;
   description: string;
   className?: string; // Ensure className is optional

@@ -8,7 +8,9 @@ import ExperienceItem from './ExperienceItem';
 // Fixed typo in import path
 import { Page } from './ui/Page';
 import { StyledExperienceLayout } from "./ExperienceLaayout.styled";
+import profcesslogo from '@/public/profcess_logo.jpg'
 
+import origsonlogo from "@/public/origson.jpg"
 
 gsap.registerPlugin(Flip, ScrollTrigger);
 export const useScreenWidth = () => {
@@ -33,10 +35,10 @@ export const useScreenWidth = () => {
   
 
 const experiences = [
-  { logo: '/images/logo1.png', title: 'Stealth Startup', description: 'Description for Stealth Startup' },
-  { logo: '/images/logo2.png', title: 'RBL Bank', description: 'Description for RBL Bank' },
-  { logo: '/images/logo3.png', title: 'GenioBits', description: 'Description for GenioBits' },
-  { logo: '/images/logo4.png', title: 'DRAIC', description: 'Description for DRAIC' },
+  { logo: origsonlogo, title: 'Orinson Technologies Private Limited', description: 'I am working as full stack developer intern here ' },
+  { logo: profcesslogo, title: 'Profcess', description: 'I am currently working as a frontend intern exploring react native ' },
+  { logo: '/images/logo3.png', title: 'It could be your company', description: 'Description for GenioBits' },
+ 
 ];
 
 const Experience: React.FC = () => {
