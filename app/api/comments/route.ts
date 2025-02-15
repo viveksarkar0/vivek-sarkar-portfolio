@@ -43,9 +43,7 @@ export async function GET(req: NextRequest) {
         replies: { // Fetch replies
           include: {
             user: true,
-            replies: { // Ensure deep nesting works
-              include: { user: true },
-            },
+            // Remove likes if not part of Reply
           },
         },
         likes: {
