@@ -5,9 +5,9 @@ const nextConfig = {
       {
         hostname: "cdn.sanity.io",
         protocol: "https",
-        port: "",
       },
     ],
+    domains: ["via.placeholder.com"], // Moved outside `remotePatterns`
   },
 };
 

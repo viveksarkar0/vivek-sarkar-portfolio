@@ -33,6 +33,7 @@ export function Hero() {
         alt="vivek sarkar"
         className="col-span-1 h-[500px] object-cover rounded-2xl bg-gray-100"
         priority
+       
       />
     </div>
   );

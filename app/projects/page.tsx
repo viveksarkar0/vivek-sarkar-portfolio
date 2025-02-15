@@ -1,69 +1,272 @@
-import Image from "next/image";
-import { ProjectsCard } from "../lib/interface";
-import { client } from "../lib/sanity";
+"use client"
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Heart, Link } from 'lucide-react';
 
-async function getData() {
-  const query = `*[_type == 'project'] | order(_createdAt desc) {
-        title,
-          _id,
-          link,
-          description,
-          tags,
-          "imageUrl": image.asset->url
-        
-    }`;
-
-  const data = await client.fetch(query, {}, { next: { revalidate: 30 } });
-
-  return data;
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  github: string;
+  tags: string[];
+  likes: number;
 }
 
-export default async function ProjectsPage() {
-  const data: ProjectsCard[] = await getData();
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Project One",
+    description: "This is a dummy description for Project One.",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+    github: "https://github.com",
+    tags: ["Next.js", "Sanity", "TailwindCSS"],
+    likes: 128
+  },
+  {
+    id: 2,
+    title: "Project Two",
+    description: "This is a dummy description for Project Two.",
+    image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
+    github: "https://github.com",
+    tags: ["React", "Drizzle", "NeonDB"],
+    likes: 245
+  }
+];
+
+const ProjectPage = () => {
+  const [likedProjects, setLikedProjects] = useState<Set<number>>(new Set());
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  const handleLike = (id: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLikedProjects(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
 
   return (
-    <section className="max-w-7xl w-full px-4 md:px-8 mx-auto">
-      <h1 className="text-4xl font-semibold lg:text-5xl pt-5">Projects</h1>
-      <p className="leading-7 text-muted-foreground mt-2">
-        Check out what projects I have created
-      </p>
-      <div className="py-12 grid md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12 grid-cols-1">
-        {data.map((item) => (
-          <a
-            href={item.link}
-            key={item._id}
-            className="group block"
-            target="_blank"
-          >
-            <div className="aspect-w-16 aspect-h-12 overflow-hidden rounded-2xl relative">
-              <Image
-                src={item.imageUrl}
-                alt="Image Description"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-2xl"
-              />
-            </div>
-            <div className="mt-4">
-              <h2 className="font-medium text-lg hover:underline">
-                {item.title}
-              </h2>
-              <p className="mt-1 text-muted-foreground line-clamp-3">
-                {item.description}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {item.tags.map((tagItem, index) => (
-                  <span
-                    className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1.5 text-xs sm:text-sm font-medium text-primary ring-2 ring-inset ring-primary/20"
-                    key={index}
-                  >
-                    {tagItem}
-                  </span>
-                ))}
+    <div className="min-h-screen bg-white text-black">
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <motion.h1 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-6xl font-bold mb-16 text-center"
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+            Featured Projects
+          </span>
+        </motion.h1>
+
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {projects.map((project) => (
+            <motion.div
+              key={project.id}
+              layoutId={`project-${project.id}`}
+              onClick={() => setSelectedId(project.id)}
+              variants={{
+                hidden: { y: 20, opacity: 0 },
+                visible: { 
+                  y: 0, 
+                  opacity: 1,
+                  transition: {
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 20
+                  }
+                }
+              }}
+              whileHover={{ y: -5 }}
+              className="group cursor-pointer"
+            >
+              <div className="bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 group-hover:shadow-xl">
+                <div className="relative h-[300px] overflow-hidden">
+                  <motion.img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
+                </div>
+
+                <div className="p-6">
+                  <h2 className="text-2xl font-bold mb-2">{project.title}</h2>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.map((tag) => (
+                      <motion.span
+                        key={tag}
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600"
+                      >
+                        {tag}
+                      </motion.span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <motion.button
+                      onClick={(e) => handleLike(project.id, e)}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="flex items-center space-x-2 text-gray-600 hover:text-pink-500 transition-colors"
+                    >
+                      <Heart
+                        className={`w-5 h-5 transition-colors ${
+                          likedProjects.has(project.id) ? 'fill-pink-500 text-pink-500' : ''
+                        }`}
+                      />
+                      <span>{project.likes + (likedProjects.has(project.id) ? 1 : 0)}</span>
+                    </motion.button>
+
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+                      whileHover={{ x: 5 }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Github className="w-5 h-5" />
+                      <span>View Source</span>
+                    </motion.a>
+                  </div>
+                </div>
               </div>
-            </div>
-          </a>
-        ))}
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <AnimatePresence>
+          {selectedId && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+              onClick={() => setSelectedId(null)}
+            >
+              <motion.div
+                layoutId={`project-${selectedId}`}
+                className="bg-white rounded-2xl max-w-3xl w-full overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {projects.find(p => p.id === selectedId) && (
+                  <div>
+                    <div className="relative h-[400px]">
+                      <motion.img
+                        src={projects.find(p => p.id === selectedId)!.image}
+                        alt={projects.find(p => p.id === selectedId)!.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    </div>
+
+                    <motion.div 
+                      className="p-8"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h2 className="text-4xl font-bold mb-4">
+                        {projects.find(p => p.id === selectedId)!.title}
+                      </h2>
+                      <p className="text-gray-600 text-lg mb-6">
+                        {projects.find(p => p.id === selectedId)!.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {projects.find(p => p.id === selectedId)!.tags.map((tag) => (
+                          <motion.span
+                            key={tag}
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="px-3 py-1 bg-gray-100 rounded-full text-sm text-gray-600"
+                          >
+                            {tag}
+                          </motion.span>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center space-x-4">
+                        <motion.button
+                          onClick={(e) => handleLike(selectedId, e)}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="flex items-center space-x-2 text-gray-600 hover:text-pink-500 transition-colors"
+                        >
+                          <Heart
+                            className={`w-6 h-6 transition-colors ${
+                              likedProjects.has(selectedId) ? 'fill-pink-500 text-pink-500' : ''
+                            }`}
+                          />
+                          <span className="text-lg">
+                            {projects.find(p => p.id === selectedId)!.likes + 
+                              (likedProjects.has(selectedId) ? 1 : 0)}
+                          </span>
+                        </motion.button>
+
+                        <motion.a
+                          href={projects.find(p => p.id === selectedId)!.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+                          whileHover={{ x: 5 }}
+                        >
+                          <Github className="w-6 h-6" />
+                          <span className="text-lg">View Source</span>
+                        </motion.a>
+                        <motion.a
+                          href={projects.find(p => p.id === selectedId)!.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+                          whileHover={{ x: 5 }}
+                        >
+                          <Link className="w-6 h-6" />
+                          <span className="text-lg">View Source</span>
+                        </motion.a>
+                      </div>
+                    </motion.div>
+                  </div>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="mt-16 text-center text-gray-600">
+          <p>© 2024 Vivek Sarkar. All Rights Reserved.</p>
+          <div className="mt-4 space-x-6">
+            <a href="/" className="hover:text-gray-900 transition-colors">Home</a>
+            <a href="/guestbook" className="hover:text-gray-900 transition-colors">Guestbook</a>
+            <a href="/projects" className="hover:text-gray-900 transition-colors">Projects</a>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
-}
+};
+
+export default ProjectPage;

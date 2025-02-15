@@ -87,6 +87,7 @@ export function SectionTwo() {
           src={square}
           alt="square"
           className="w-full h-full object-cover rounded-2xl"
+       
         />
       </div>
       <div className="flex flex-col w-full col-span-1 lg:col-span-2 gap-4">

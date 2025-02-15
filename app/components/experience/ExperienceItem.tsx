@@ -40,7 +40,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({ logo, title, descriptio
       <div className="header">
         <div className="image">
           <div className="wrapper">
-            <Image src={logo} alt={title} />
+            <Image src={logo} alt={title}  fill/>
           </div>
         </div>
         <h2>{title}</h2>
