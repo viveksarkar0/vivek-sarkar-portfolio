@@ -256,14 +256,7 @@ const ProjectPage = () => {
           )}
         </AnimatePresence>
 
-        <div className="mt-16 text-center text-gray-600">
-          <p>© 2024 Vivek Sarkar. All Rights Reserved.</p>
-          <div className="mt-4 space-x-6">
-            <a href="/" className="hover:text-gray-900 transition-colors">Home</a>
-            <a href="/guestbook" className="hover:text-gray-900 transition-colors">Guestbook</a>
-            <a href="/projects" className="hover:text-gray-900 transition-colors">Projects</a>
-          </div>
-        </div>
+        
       </div>
     </div>
   );
