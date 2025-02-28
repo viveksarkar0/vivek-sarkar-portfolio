@@ -5,7 +5,7 @@ import Experience from "./experience/Experience";
 export function ExperienceTab() {
   return (
     <div className=" gap-4 mt-10">
-      <Card className="  border-none bg-gray-100 p-8">
+      <Card className="  border-none bg-gray-100 p-8  h-[80vh]">
         <h1 className="font-bold text-3xl">Experience</h1>
       <Experience/>
       </Card>
