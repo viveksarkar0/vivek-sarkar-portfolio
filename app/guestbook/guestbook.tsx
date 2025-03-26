@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { formatDistanceToNow } from "date-fns"
+// import { formatDistanceToNow } from "date-fns"
 import { MessageCircle, Heart, Share2, MoreHorizontal } from "lucide-react"
 import {
   DropdownMenu,
@@ -106,7 +106,7 @@ export function Guestbook({ initialComments }: GuestbookProps) {
               <span className="font-semibold text-sm">{comment.user.name || "Guest"}</span>
               <span className="text-gray-500 dark:text-gray-400 text-sm">·</span>
               <span className="text-gray-500 dark:text-gray-400 text-sm">
-                {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
+                {/* {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })} */}
               </span>
             </div>
             <DropdownMenu>

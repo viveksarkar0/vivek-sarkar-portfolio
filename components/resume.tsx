@@ -102,12 +102,12 @@ export const DATA = {
         "/record.mov",
     },
     {
-      title: "Magic UI",
-      href: "https://magicui.design",
-      dates: "June 2023 - Present",
+      title: "Task Manager",
+      href: "https://www.easyjackets.com/",
+      dates: "sept 2024 - Dec 2024",
       active: true,
       description:
-        "Designed, developed and sold animated UI components for developers.",
+        "Designed, developed a Task manager app with Next.js, Prisma, PostgreSQL, and TailwindCSS. Integrated Stripe for subscription payments and Magic for passwordless authentication. Implemented a responsive UI with Shadcn and Magic UI.",
       technologies: [
         "Next.js",
         "Typescript",
@@ -136,10 +136,10 @@ export const DATA = {
     {
       title: "Mystiyfy me",
       href: "https://llm.report",
-      dates: "April 2023 - September 2023",
+      dates: "April 2024 - September 2024",
       active: true,
       description:
-        "Developed an open-source logging and analytics platform for OpenAI: Log your ChatGPT API requests, analyze costs, and improve your prompts.",
+        "Developed an Anonymous message sending platform with next js prisma Postgres .",
       technologies: [
         "Next.js",
         "Typescript",
@@ -154,12 +154,12 @@ export const DATA = {
       links: [
         {
           type: "Website",
-          href: "https://llm.report",
+          href: "https://mystify-me-irca.vercel.app/",
           icon: <Icons.globe className="size-3" />,
         },
         {
           type: "Source",
-          href: "https://github.com/dillionverma/llm.report",
+          href: "https://github.com/viveksarkar0/MystifyMe.git",
           icon: <Icons.github className="size-3" />,
         },
       ],
@@ -168,7 +168,7 @@ export const DATA = {
     },
     {
       title: "Automatic Chat",
-      href: "https://automatic.chat",
+      href: "https://automatic.cha",
       dates: "April 2023 - March 2024",
       active: true,
       description:
@@ -191,9 +191,9 @@ export const DATA = {
           icon: <Icons.globe className="size-3" />,
         },
       ],
-      image: "",
+      image: "/come.jpg",
       video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/automatic-chat.mp4",
+        "",
     },
   ],
 
